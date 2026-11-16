@@ -38,6 +38,7 @@ function saveActiveProject() {
 function updateProjectCount() {
   document.querySelector('.stats-grid .stat-number').textContent = String(3 + projects.length);
   document.querySelector('.nav-count').textContent = String(projects.length + 3);
+  document.querySelectorAll('.stats-grid .stat-number')[1].textContent = String(document.querySelectorAll('.component-row').length);
 }
 function renderProjects() {
   projectGrid.querySelectorAll('.created-project').forEach((card) => card.remove());
@@ -172,8 +173,33 @@ document.querySelectorAll('.component-row').forEach((button) => button.addEventL
   renderParts();
   saveActiveProject();
   renderProjects();
-  showToast(`${part.name} добавлен в проект`);
+  showToast(button.dataset.safety === 'high-voltage'
+    ? 'Добавлен условный блок 400 кВ. Это символ для концептуальной схемы, не реальная схема устройства.'
+    : `${part.name} добавлен в проект`);
 }));
+
+const categoryByPart = {
+  board: 'boards', nano: 'boards', esp32: 'boards', pico: 'boards',
+  led: 'passive', 'rgb-led': 'passive', resistor: 'passive', button: 'passive', potentiometer: 'passive', battery: 'passive', mosfet: 'passive', capacitor: 'passive', diode: 'passive', transistor: 'passive', breadboard: 'passive',
+  sensor: 'sensors', dht22: 'sensors', ultrasonic: 'sensors', ldr: 'sensors', bmp280: 'sensors', lm35: 'sensors', pir: 'sensors', gas: 'sensors', hall: 'sensors', soil: 'sensors', microphone: 'sensors', 'current-sensor': 'sensors',
+  'function-generator': 'signals', 'pulse-generator': 'signals', hv400kv: 'signals', scope: 'signals',
+  oled: 'displays', lcd1602: 'displays', 'seven-segment': 'displays',
+  servo: 'drivers', motor: 'drivers', relay: 'drivers', l298n: 'drivers', buzzer: 'drivers',
+};
+document.querySelectorAll('.component-row').forEach((button) => {
+  button.dataset.category ||= categoryByPart[button.dataset.part] || 'passive';
+});
+function filterComponents() {
+  const query = document.querySelector('#component-search').value.trim().toLocaleLowerCase('ru');
+  const category = document.querySelector('#component-category').value;
+  document.querySelectorAll('.component-row').forEach((button) => {
+    const matchesText = button.textContent.toLocaleLowerCase('ru').includes(query);
+    const matchesCategory = category === 'all' || button.dataset.category === category;
+    button.hidden = !matchesText || !matchesCategory;
+  });
+}
+document.querySelector('#component-search').addEventListener('input', filterComponents);
+document.querySelector('#component-category').addEventListener('change', filterComponents);
 document.querySelector('#add-component').addEventListener('click', () => {
   document.querySelector('#components').scrollTo({ top: 0, behavior: 'smooth' });
   showToast('Выбери деталь из списка слева');
