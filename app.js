@@ -100,7 +100,10 @@ const pinMap = {
 };
 function pinsFor(type) { return pinMap[type] || ['SIG', 'VCC', 'GND']; }
 function graphicFor(type) {
-  if (['board', 'nano', 'esp32', 'pico'].includes(type)) return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="18" y="8" width="144" height="68" rx="6" fill="#286846" stroke="#6b9b6a" stroke-width="2"/><rect x="2" y="31" width="20" height="22" rx="3" fill="#bcc2b4" stroke="#768172"/><rect x="70" y="25" width="41" height="34" rx="3" fill="#171d19" stroke="#68796a"/><path d="M33 17h24m74 0h18M34 67h26m58 0h28" stroke="#b9d3aa" stroke-width="2"/><circle cx="44" cy="38" r="4" fill="#e3d76d"/><text x="79" y="45" fill="#b9cbb5" font-size="8">MCU</text><g fill="#d9c78e"><circle cx="42" cy="7" r="2"/><circle cx="54" cy="7" r="2"/><circle cx="66" cy="7" r="2"/><circle cx="78" cy="7" r="2"/><circle cx="90" cy="7" r="2"/><circle cx="102" cy="7" r="2"/><circle cx="114" cy="7" r="2"/><circle cx="126" cy="7" r="2"/><circle cx="42" cy="77" r="2"/><circle cx="54" cy="77" r="2"/><circle cx="66" cy="77" r="2"/><circle cx="78" cy="77" r="2"/><circle cx="90" cy="77" r="2"/><circle cx="102" cy="77" r="2"/><circle cx="114" cy="77" r="2"/><circle cx="126" cy="77" r="2"/></g></svg>';
+  if (type === 'board') return '<svg viewBox="0 0 180 96" aria-hidden="true"><rect x="18" y="8" width="145" height="80" rx="9" fill="#246b4f" stroke="#75a978" stroke-width="2"/><circle cx="29" cy="19" r="4" fill="#16271e" stroke="#acbd95"/><circle cx="151" cy="19" r="4" fill="#16271e" stroke="#acbd95"/><circle cx="29" cy="77" r="4" fill="#16271e" stroke="#acbd95"/><circle cx="151" cy="77" r="4" fill="#16271e" stroke="#acbd95"/><rect x="2" y="36" width="23" height="26" rx="3" fill="#b7bdb4" stroke="#717b75" stroke-width="2"/><rect x="45" y="19" width="26" height="23" rx="3" fill="#171e19" stroke="#64796b"/><rect x="81" y="35" width="47" height="36" rx="3" fill="#151a17" stroke="#87937e"/><path d="M88 40v25m7-25v25m7-25v25m7-25v25m7-25v25" stroke="#6a746b"/><rect x="134" y="27" width="19" height="10" rx="2" fill="#b9bfb2"/><circle cx="76" cy="23" r="3" fill="#f0db63"/><circle cx="76" cy="34" r="3" fill="#79dc71"/><text x="46" y="57" fill="#d7e4ce" font-size="9" font-weight="bold">UNO</text><g fill="#dbc98e"><circle cx="42" cy="8" r="2"/><circle cx="54" cy="8" r="2"/><circle cx="66" cy="8" r="2"/><circle cx="78" cy="8" r="2"/><circle cx="90" cy="8" r="2"/><circle cx="102" cy="8" r="2"/><circle cx="114" cy="8" r="2"/><circle cx="126" cy="8" r="2"/><circle cx="42" cy="88" r="2"/><circle cx="54" cy="88" r="2"/><circle cx="66" cy="88" r="2"/><circle cx="78" cy="88" r="2"/><circle cx="90" cy="88" r="2"/><circle cx="102" cy="88" r="2"/><circle cx="114" cy="88" r="2"/><circle cx="126" cy="88" r="2"/></g></svg>';
+  if (type === 'nano') return '<svg viewBox="0 0 180 96" aria-hidden="true"><rect x="48" y="4" width="84" height="88" rx="8" fill="#246b4f" stroke="#75a978" stroke-width="2"/><rect x="75" y="0" width="31" height="12" rx="3" fill="#bec2b8" stroke="#737a72"/><rect x="69" y="32" width="42" height="31" rx="3" fill="#171e19" stroke="#899486"/><text x="78" y="51" fill="#d8e4d3" font-size="9">NANO</text><circle cx="62" cy="25" r="3" fill="#ebd763"/><circle cx="119" cy="25" r="3" fill="#79dc71"/><g fill="#dbc98e"><circle cx="53" cy="13" r="2"/><circle cx="67" cy="13" r="2"/><circle cx="81" cy="13" r="2"/><circle cx="95" cy="13" r="2"/><circle cx="109" cy="13" r="2"/><circle cx="123" cy="13" r="2"/><circle cx="53" cy="83" r="2"/><circle cx="67" cy="83" r="2"/><circle cx="81" cy="83" r="2"/><circle cx="95" cy="83" r="2"/><circle cx="109" cy="83" r="2"/><circle cx="123" cy="83" r="2"/></g></svg>';
+  if (type === 'esp32') return '<svg viewBox="0 0 180 96" aria-hidden="true"><rect x="42" y="6" width="96" height="84" rx="8" fill="#275c49" stroke="#85a975" stroke-width="2"/><path d="M67 12h46v12H67z" fill="#c3c8bc" stroke="#70786e"/><rect x="67" y="32" width="48" height="34" rx="4" fill="#b5b9ad" stroke="#758074"/><rect x="80" y="42" width="23" height="16" rx="2" fill="#171e19"/><text x="84" y="53" fill="#d6e5cf" font-size="6">ESP32</text><g fill="#dbc98e"><circle cx="47" cy="20" r="2"/><circle cx="47" cy="34" r="2"/><circle cx="47" cy="48" r="2"/><circle cx="47" cy="62" r="2"/><circle cx="47" cy="76" r="2"/><circle cx="133" cy="20" r="2"/><circle cx="133" cy="34" r="2"/><circle cx="133" cy="48" r="2"/><circle cx="133" cy="62" r="2"/><circle cx="133" cy="76" r="2"/></g><circle cx="57" cy="14" r="3" fill="#79dc71"/></svg>';
+  if (type === 'pico') return '<svg viewBox="0 0 180 96" aria-hidden="true"><rect x="52" y="5" width="76" height="86" rx="9" fill="#276749" stroke="#84aa70" stroke-width="2"/><rect x="77" y="0" width="26" height="11" rx="3" fill="#bec2b8"/><rect x="70" y="31" width="40" height="32" rx="4" fill="#1b211b" stroke="#8d9d82"/><text x="77" y="50" fill="#d2e1c9" font-size="8">RP2040</text><g fill="#dbc98e"><circle cx="57" cy="16" r="2"/><circle cx="57" cy="28" r="2"/><circle cx="57" cy="40" r="2"/><circle cx="57" cy="52" r="2"/><circle cx="57" cy="64" r="2"/><circle cx="57" cy="76" r="2"/><circle cx="123" cy="16" r="2"/><circle cx="123" cy="28" r="2"/><circle cx="123" cy="40" r="2"/><circle cx="123" cy="52" r="2"/><circle cx="123" cy="64" r="2"/><circle cx="123" cy="76" r="2"/></g></svg>';
   if (type === 'tp4056') return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="24" y="14" width="132" height="58" rx="5" fill="#24513e" stroke="#73a16a" stroke-width="2"/><rect x="4" y="31" width="27" height="24" rx="4" fill="#b4b8ad" stroke="#70776d"/><rect x="67" y="28" width="28" height="28" rx="3" fill="#171b18" stroke="#697768"/><text x="70" y="45" fill="#aebbaa" font-size="7">4056</text><rect x="111" y="25" width="22" height="13" rx="2" fill="#d2b374"/><circle cx="45" cy="29" r="4" fill="#ec685d"/><circle cx="45" cy="56" r="4" fill="#72d66b"/><g fill="#e0c98e"><circle cx="51" cy="12" r="3"/><circle cx="67" cy="12" r="3"/><circle cx="83" cy="12" r="3"/><circle cx="99" cy="12" r="3"/><circle cx="115" cy="12" r="3"/><circle cx="131" cy="12" r="3"/><circle cx="51" cy="74" r="3"/><circle cx="67" cy="74" r="3"/><circle cx="83" cy="74" r="3"/><circle cx="99" cy="74" r="3"/><circle cx="115" cy="74" r="3"/><circle cx="131" cy="74" r="3"/></g></svg>';
   if (['sensor', 'dht22', 'bmp280', 'lm35', 'pir', 'gas', 'hall', 'soil', 'microphone', 'current-sensor'].includes(type)) return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="33" y="9" width="114" height="63" rx="6" fill="#285e49" stroke="#78a06b" stroke-width="2"/><rect x="61" y="23" width="58" height="38" rx="4" fill="#c9cfbb" stroke="#75806e"/><path d="M69 28v28m8-28v28m8-28v28m8-28v28m8-28v28" stroke="#909988"/><circle cx="127" cy="20" r="3" fill="#eac95e"/><g fill="#dcc890"><circle cx="55" cy="6" r="2.5"/><circle cx="75" cy="6" r="2.5"/><circle cx="95" cy="6" r="2.5"/><circle cx="115" cy="6" r="2.5"/><circle cx="55" cy="75" r="2.5"/><circle cx="75" cy="75" r="2.5"/><circle cx="95" cy="75" r="2.5"/><circle cx="115" cy="75" r="2.5"/></g></svg>';
   if (type === 'led' || type === 'rgb-led') return '<svg viewBox="0 0 180 84" aria-hidden="true"><path d="M77 56v23m26-23v23" stroke="#c2c6b7" stroke-width="4"/><path d="M66 40a22 22 0 1 1 44 0c0 10-6 14-9 20H75c-3-6-9-10-9-20Z" fill="#df766a" stroke="#ffc0a5" stroke-width="3"/><path d="M75 48h26" stroke="#f9c6ad" stroke-width="2"/></svg>';
@@ -113,14 +116,23 @@ function graphicFor(type) {
 }
 function renderParts() {
   componentLayer.replaceChildren();
+  const rows = Math.ceil((activeProject.parts || []).length / 2);
+  canvas.style.height = activeProject.id !== defaultProject.id ? `${Math.max(258, rows * 174 + 28)}px` : '258px';
   if (activeProject.id !== defaultProject.id) {
     activeProject.parts.forEach((part, index) => {
       const item = document.createElement('article');
       item.className = 'placed-part component-card';
       item.dataset.type = part.type;
       item.dataset.componentId = part.id;
+      const canvasWidth = Math.max(1, canvas.clientWidth);
+      const canvasHeight = Math.max(1, canvas.clientHeight);
+      const maxX = Math.max(0, 1 - Math.min(220, canvasWidth * 0.48) / canvasWidth);
+      part.x = Number.isFinite(part.x) ? Math.min(part.x, maxX) : (index % 2 ? Math.min(0.51, maxX) : 0.02);
+      part.y = Number.isFinite(part.y) ? Math.min(part.y, Math.max(0, 1 - 172 / canvasHeight)) : (Math.floor(index / 2) * 174 + 12) / canvasHeight;
+      item.style.left = `${part.x * 100}%`;
+      item.style.top = `${part.y * 100}%`;
       const pinButtons = pinsFor(part.type).slice(0, 8).map((pin) => `<button class="visual-pin" type="button" data-pin-name="${escapeHtml(pin)}" title="Контакт ${escapeHtml(pin)}"><i></i><span>${escapeHtml(pin)}</span></button>`).join('');
-      item.innerHTML = `<div class="component-card-head"><span class="component-led"></span><span class="placed-part-name"></span><button class="remove-part" type="button" aria-label="Убрать компонент" title="Убрать компонент">×</button></div><div class="component-graphic">${graphicFor(part.type)}</div><div class="visual-pins">${pinButtons || '<span class="concept-pad">Нет физических контактов</span>'}</div>`;
+      item.innerHTML = `<div class="component-card-head"><span class="drag-handle" title="Перетащи, чтобы переместить" aria-label="Переместить элемент">⠿</span><span class="component-led"></span><span class="placed-part-name"></span><button class="remove-part" type="button" aria-label="Убрать компонент" title="Убрать компонент">×</button></div><div class="component-graphic">${graphicFor(part.type)}</div><div class="visual-pins">${pinButtons || '<span class="concept-pad">Нет физических контактов</span>'}</div>`;
       item.querySelector('.placed-part-name').textContent = part.name;
       item.querySelector('.remove-part').addEventListener('click', () => {
         activeProject.parts.splice(index, 1);
@@ -130,6 +142,7 @@ function renderParts() {
         renderProjects();
       });
       componentLayer.append(item);
+      attachDragHandle(item, part);
     });
   }
   const count = activeProject.id === defaultProject.id ? 3 : activeProject.parts.length;
@@ -139,11 +152,48 @@ function renderParts() {
   document.querySelector('.workspace-badge').innerHTML = `<i></i> ${activeProject.id === defaultProject.id ? 'Черновик сохранён' : 'Автосохранение включено'}`;
   document.querySelectorAll('.component-row').forEach((row) => row.classList.remove('added'));
   componentLayer.style.transform = `scale(${zoom / 100})`;
-  const rows = Math.ceil((activeProject.parts || []).length / 2);
-  if (activeProject.id !== defaultProject.id) canvas.style.height = `${Math.max(258, rows * 174 + 28)}px`;
-  else canvas.style.height = '258px';
   renderConnectionPanel();
   requestAnimationFrame(drawConnections);
+}
+
+function attachDragHandle(card, part) {
+  const handle = card.querySelector('.drag-handle');
+  handle.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    const scale = zoom / 100;
+    const cardRect = card.getBoundingClientRect();
+    const grabX = (event.clientX - cardRect.left) / scale;
+    const grabY = (event.clientY - cardRect.top) / scale;
+    handle.setPointerCapture(event.pointerId);
+    card.classList.add('dragging');
+    const move = (moveEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const left = (moveEvent.clientX - rect.left + canvas.scrollLeft) / scale - grabX;
+      const top = (moveEvent.clientY - rect.top + canvas.scrollTop) / scale - grabY;
+      const maxLeft = Math.max(0, canvas.clientWidth - card.offsetWidth);
+      const maxTop = Math.max(0, canvas.clientHeight - card.offsetHeight);
+      const clampedLeft = Math.max(0, Math.min(left, maxLeft));
+      const clampedTop = Math.max(0, Math.min(top, maxTop));
+      part.x = clampedLeft / Math.max(1, canvas.clientWidth);
+      part.y = clampedTop / Math.max(1, canvas.clientHeight);
+      card.style.left = `${part.x * 100}%`;
+      card.style.top = `${part.y * 100}%`;
+      requestAnimationFrame(drawConnections);
+    };
+    const finish = () => {
+      handle.removeEventListener('pointermove', move);
+      handle.removeEventListener('pointerup', finish);
+      handle.removeEventListener('pointercancel', finish);
+      if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
+      card.classList.remove('dragging');
+      saveActiveProject();
+      renderProjects();
+      drawConnections();
+    };
+    handle.addEventListener('pointermove', move);
+    handle.addEventListener('pointerup', finish);
+    handle.addEventListener('pointercancel', finish);
+  });
 }
 
 function fillComponentOptions(select, preferredValue) {
