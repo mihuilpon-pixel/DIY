@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <meta name="description" content="CircuitLab — проекты с микроконтроллерами, схемы и код для DIY-идей.">
+  <title>CircuitLab — мастерская DIY-проектов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="CircuitLab — главная"><span class="brand-mark">C<span>·</span></span><span>Circuit<span class="brand-light">Lab</span></span></a>
+      <div class="side-label">МАСТЕРСКАЯ</div>
+      <nav class="main-nav" aria-label="Главная навигация">
+        <a class="nav-item active" href="#home"><span class="nav-icon">⌂</span>Обзор</a>
+        <a class="nav-item" href="#projects"><span class="nav-icon">▦</span>Проекты <span class="nav-count">12</span></a>
+        <a class="nav-item" href="#workspace"><span class="nav-icon">⌘</span>Редактор схем</a>
+        <a class="nav-item" href="#code"><span class="nav-icon">&lt;/&gt;</span>Редактор кода</a>
+      </nav>
+      <div class="side-label side-label-spaced">БИБЛИОТЕКА</div>
+      <nav class="main-nav"><a class="nav-item" href="#components"><span class="nav-icon">◈</span>Компоненты</a><a class="nav-item" href="#guides"><span class="nav-icon">▤</span>Инструкции</a></nav>
+      <div class="sidebar-bottom"><div class="tip-card"><span class="tip-spark">✳</span><div><strong>Есть идея?</strong><p>Собери её в рабочий прототип.</p></div><a href="#workspace" class="tip-link">Открыть мастерскую <span>↗</span></a></div><button class="profile"><span class="avatar">МК</span><span><strong>Моя мастерская</strong><small>Локальный режим</small></span><span class="dots">···</span></button></div>
+    </aside>
+
+    <main class="main-content" id="home">
+      <header class="topbar"><div class="breadcrumbs">Мастерская <span>/</span> <b>Обзор</b></div><div class="top-actions"><button class="icon-button" aria-label="Уведомления">♧<i></i></button><span class="top-divider"></span><span class="avatar avatar-small">МК</span><button class="mobile-menu" aria-label="Открыть меню">☰</button></div></header>
+      <div class="content-wrap">
+        <section class="welcome-row"><div><p class="eyebrow"><span class="status-dot"></span> ТВОЯ ЦИФРОВАЯ МАСТЕРСКАЯ</p><h1>Хорошие идеи<br>начинаются <em>здесь.</em></h1><p class="welcome-copy">Проектируй схемы, пиши код и собирай устройства.<br>Всё для следующего DIY-проекта — в одном месте.</p></div><button class="primary-button" id="new-project"><span>＋</span> Новый проект</button></section>
+
+        <section class="stats-grid" aria-label="Сводка проектов"><article class="stat-card"><div class="stat-top"><span class="stat-icon mint">▦</span><span class="stat-change">↗ +2 за неделю</span></div><div class="stat-number">12</div><div class="stat-label">Всего проектов</div><div class="stat-foot">5 в работе <span>·</span> 7 завершено</div></article><article class="stat-card"><div class="stat-top"><span class="stat-icon violet">◈</span><span class="stat-meta">В библиотеке</span></div><div class="stat-number">48</div><div class="stat-label">Компонентов</div><div class="stat-foot">От светодиодов до датчиков</div></article><article class="stat-card"><div class="stat-top"><span class="stat-icon amber">ϟ</span><span class="stat-meta">Всё готово</span></div><div class="stat-number">3</div><div class="stat-label">Платы подключены</div><div class="stat-foot"><span class="online-dot"></span> Arduino Uno, ESP32, Nano</div></article></section>
+
+        <section class="section-block" id="projects"><div class="section-heading"><div><p class="eyebrow">ПРОДОЛЖАЙ ТВОРИТЬ</p><h2>Недавние проекты</h2></div><a class="text-link" href="#projects">Все проекты <span>→</span></a></div><div class="project-grid">
+          <article class="project-card featured-project"><div class="project-art art-plant"><div class="art-chip">ESP32</div><div class="plant-scene"><div class="plant-pot"></div><div class="stem stem-one"></div><div class="stem stem-two"></div><div class="leaf leaf-one"></div><div class="leaf leaf-two"></div><div class="leaf leaf-three"></div><div class="sensor"></div><div class="sensor-cable"></div></div><div class="art-caption">SENSOR / 01</div></div><div class="project-info"><div class="project-title-row"><h3>Умный полив</h3><button class="more-button" aria-label="Меню проекта">···</button></div><p>Автоматический полив растений с ESP32</p><div class="project-meta"><span class="project-status in-progress"><i></i>В работе</span><span>Обновлён сегодня</span></div><div class="project-tags"><span>ESP32</span><span>Датчики</span><span>IoT</span></div></div></article>
+          <article class="project-card"><div class="project-art art-clock"><div class="art-chip">ARDUINO</div><div class="clock-face"><span>10<span class="clock-colon">:</span>42</span><i class="clock-led"></i></div><div class="clock-board"></div><div class="art-caption">DISPLAY / 07</div></div><div class="project-info"><div class="project-title-row"><h3>Настольные часы</h3><button class="more-button" aria-label="Меню проекта">···</button></div><p>Часы с матричным дисплеем и RTC</p><div class="project-meta"><span class="project-status ready"><i></i>Готово</span><span>Обновлён вчера</span></div><div class="project-tags"><span>Arduino</span><span>LED Matrix</span></div></div></article>
+          <article class="project-card"><div class="project-art art-car"><div class="art-chip">ROBOTICS</div><div class="car-scene"><div class="car-top"></div><div class="car-body"></div><div class="car-wheel wheel-one"></div><div class="car-wheel wheel-two"></div><div class="car-beam"></div></div><div class="art-caption">MOTION / 12</div></div><div class="project-info"><div class="project-title-row"><h3>Робот-вездеход</h3><button class="more-button" aria-label="Меню проекта">···</button></div><p>Управление по Bluetooth и датчик пути</p><div class="project-meta"><span class="project-status paused"><i></i>Черновик</span><span>Обновлён 3 дня назад</span></div><div class="project-tags"><span>Arduino</span><span>Моторы</span><span>BLE</span></div></div></article>
+        </div></section>
+
+        <section class="workspace-section" id="workspace"><div class="section-heading"><div><p class="eyebrow">СОБИРАЙ И ПРОВЕРЯЙ</p><h2>Твоя мастерская</h2></div><span class="workspace-badge"><i></i> Черновик сохранён</span></div><div class="workbench"><div class="workbench-top"><div class="file-tab"><span class="tab-led"></span>Новая схема <span class="tab-close">×</span></div><div class="canvas-tools"><button title="Уменьшить масштаб" id="zoom-out">−</button><span id="zoom-level">100%</span><button title="Увеличить масштаб" id="zoom-in">＋</button><span class="tool-separator"></span><button title="Сбросить масштаб" id="zoom-reset">⤢</button></div><button id="simulate" class="simulate-button"><span>▷</span> Симуляция</button></div><div class="editor-layout"><div class="component-rail" id="components"><div class="rail-heading">КОМПОНЕНТЫ <button title="Добавить компонент" id="add-component">＋</button></div><button class="component-row" data-part="led"><span class="component-glyph glyph-led">◉</span><span>Светодиод<small>LED · 5 мм</small></span><span class="drag-mark">⠿</span></button><button class="component-row" data-part="resistor"><span class="component-glyph glyph-resistor">▱</span><span>Резистор<small>220 Ω</small></span><span class="drag-mark">⠿</span></button><button class="component-row" data-part="board"><span class="component-glyph glyph-board">▦</span><span>Arduino Uno<small>ATmega328P</small></span><span class="drag-mark">⠿</span></button><button class="component-row" data-part="sensor"><span class="component-glyph glyph-sensor">◉</span><span>Датчик DHT11<small>Температура</small></span><span class="drag-mark">⠿</span></button><button class="component-row" data-part="breadboard"><span class="component-glyph glyph-breadboard">▤</span><span>Макетная плата<small>400 точек</small></span><span class="drag-mark">⠿</span></button><div class="rail-hint">Нажми на компонент,<br>чтобы добавить на поле</div></div><div class="canvas-wrap"><div class="canvas-grid" id="canvas-grid"><svg class="wires" viewBox="0 0 760 390" preserveAspectRatio="none"><path class="wire wire-red" d="M288 187 H377 Q385 187 385 179 V144 Q385 136 393 136 H481"/><path class="wire wire-black" d="M288 235 H362 Q370 235 370 243 V300 Q370 308 378 308 H489"/><path class="wire wire-green" d="M288 213 H426 Q434 213 434 205 V176 Q434 168 442 168 H481"/></svg><div class="board-component" id="board-component"><div class="board-usb"></div><div class="board-label">UNO</div><div class="board-mainchip"></div><div class="board-pin-row"></div><div class="board-pin-label">DIGITAL (PWM~)</div><div class="board-led"></div><div class="board-reset"></div><div class="board-header"></div></div><div class="breadboard"><div class="bread-lines"><span></span><span></span><span></span></div><div class="board-holes"></div><div class="bread-mark">+　−　a b c d e　 f g h i j</div></div><div class="led-component"><div class="led-dome"></div><div class="led-wire"></div></div><div class="resistor-component"><span>▰</span></div><div class="canvas-coordinate">ПОЛЕ 01 <span>·</span> 400 × 220</div></div><div class="canvas-footer"><span><i class="online-dot"></i> Всё подключено</span><span>Arduino Uno <b>·</b> 3 компонента <b>·</b> 2 соединения</span></div></div></div><div class="editor-bottom" id="code"><div class="code-head"><div><span class="code-icon">&lt;/&gt;</span><strong>Скетч Arduino</strong><span class="code-file">main.ino</span></div><button id="copy-code">Копировать код <span>▣</span></button></div><pre class="code-block"><code><span class="line-number">1</span><span class="code-comment">// мигаем светодиодом на пине 13</span>
+<span class="line-number">2</span><span class="code-keyword">const int</span> <span class="code-var">ledPin</span> = <span class="code-number">13</span>;
+<span class="line-number">3</span>
+<span class="line-number">4</span><span class="code-keyword">void</span> <span class="code-func">setup</span>() {
+<span class="line-number">5</span>  <span class="code-func">pinMode</span>(ledPin, OUTPUT);
+<span class="line-number">6</span>}
+<span class="line-number">7</span>
+<span class="line-number">8</span><span class="code-keyword">void</span> <span class="code-func">loop</span>() {
+<span class="line-number">9</span>  <span class="code-func">digitalWrite</span>(ledPin, HIGH);
+<span class="line-number">10</span> <span class="code-func">delay</span>(<span class="code-number">1000</span>);
+<span class="line-number">11</span> <span class="code-func">digitalWrite</span>(ledPin, LOW);
+<span class="line-number">12</span> <span class="code-func">delay</span>(<span class="code-number">1000</span>);
+<span class="line-number">13</span>}</code></pre></div></div></section>
+
+        <footer class="footer"><span>Сделано с <span class="heart">♥</span> для тех, кто любит создавать.</span><span>CircuitLab <b>·</b> DIY начинается с идеи</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
