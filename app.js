@@ -94,11 +94,11 @@ const pinMap = {
   gas: ['VCC', 'AOUT', 'DOUT', 'GND'], hall: ['VCC', 'OUT', 'GND'], soil: ['VCC', 'SIG', 'GND'], microphone: ['VCC', 'OUT', 'GND'],
   'current-sensor': ['IP+', 'IP−', 'VCC', 'OUT', 'GND'], oled: ['VCC', 'GND', 'SDA', 'SCL'], lcd1602: ['VCC', 'GND', 'SDA', 'SCL'],
   'seven-segment': ['VCC', 'GND', 'CLK', 'DIO'], servo: ['VCC', 'SIG', 'GND'], motor: ['M+', 'M−'], relay: ['VCC', 'IN', 'GND'],
-  l298n: ['ENA', 'IN1', 'IN2', 'OUT1', 'OUT2', 'GND'], buzzer: ['+', '−'], battery: ['+', '−'], mosfet: ['G', 'D', 'S'],
+  l298n: ['ENA', 'IN1', 'IN2', 'OUT1', 'OUT2', 'GND'], buzzer: ['+', '−'], battery: ['+', '−'], mosfet: ['G', 'D', 'S'], hv400kv: ['IN · модель', 'HV OUT · модель', 'RETURN · модель'],
   potentiometer: ['A', 'W', 'B'], button: ['1', '2'], 'function-generator': ['SIG', 'GND', 'EN'], 'pulse-generator': ['SIG', 'GND', 'EN'],
   scope: ['CH1', 'GND'], capacitor: ['1', '2'], diode: ['A', 'K'], transistor: ['B', 'C', 'E'], breadboard: ['+ rail', '− rail'],
 };
-function pinsFor(type) { return type === 'hv400kv' ? [] : (pinMap[type] || ['SIG', 'VCC', 'GND']); }
+function pinsFor(type) { return pinMap[type] || ['SIG', 'VCC', 'GND']; }
 function graphicFor(type) {
   if (['board', 'nano', 'esp32', 'pico'].includes(type)) return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="18" y="8" width="144" height="68" rx="6" fill="#286846" stroke="#6b9b6a" stroke-width="2"/><rect x="2" y="31" width="20" height="22" rx="3" fill="#bcc2b4" stroke="#768172"/><rect x="70" y="25" width="41" height="34" rx="3" fill="#171d19" stroke="#68796a"/><path d="M33 17h24m74 0h18M34 67h26m58 0h28" stroke="#b9d3aa" stroke-width="2"/><circle cx="44" cy="38" r="4" fill="#e3d76d"/><text x="79" y="45" fill="#b9cbb5" font-size="8">MCU</text><g fill="#d9c78e"><circle cx="42" cy="7" r="2"/><circle cx="54" cy="7" r="2"/><circle cx="66" cy="7" r="2"/><circle cx="78" cy="7" r="2"/><circle cx="90" cy="7" r="2"/><circle cx="102" cy="7" r="2"/><circle cx="114" cy="7" r="2"/><circle cx="126" cy="7" r="2"/><circle cx="42" cy="77" r="2"/><circle cx="54" cy="77" r="2"/><circle cx="66" cy="77" r="2"/><circle cx="78" cy="77" r="2"/><circle cx="90" cy="77" r="2"/><circle cx="102" cy="77" r="2"/><circle cx="114" cy="77" r="2"/><circle cx="126" cy="77" r="2"/></g></svg>';
   if (type === 'tp4056') return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="24" y="14" width="132" height="58" rx="5" fill="#24513e" stroke="#73a16a" stroke-width="2"/><rect x="4" y="31" width="27" height="24" rx="4" fill="#b4b8ad" stroke="#70776d"/><rect x="67" y="28" width="28" height="28" rx="3" fill="#171b18" stroke="#697768"/><text x="70" y="45" fill="#aebbaa" font-size="7">4056</text><rect x="111" y="25" width="22" height="13" rx="2" fill="#d2b374"/><circle cx="45" cy="29" r="4" fill="#ec685d"/><circle cx="45" cy="56" r="4" fill="#72d66b"/><g fill="#e0c98e"><circle cx="51" cy="12" r="3"/><circle cx="67" cy="12" r="3"/><circle cx="83" cy="12" r="3"/><circle cx="99" cy="12" r="3"/><circle cx="115" cy="12" r="3"/><circle cx="131" cy="12" r="3"/><circle cx="51" cy="74" r="3"/><circle cx="67" cy="74" r="3"/><circle cx="83" cy="74" r="3"/><circle cx="99" cy="74" r="3"/><circle cx="115" cy="74" r="3"/><circle cx="131" cy="74" r="3"/></g></svg>';
@@ -202,7 +202,7 @@ function renderConnectionPanel() {
   document.querySelector('#connection-count').textContent = String(connections.length);
   document.querySelector('#connection-help').textContent = activeProject.parts.length
     ? 'Выбери начало и конец провода здесь или нажми на контакты на поле.'
-    : 'Сначала добавь компоненты слева. Источник 400 кВ — условный блок без физических контактов.';
+    : 'Сначала добавь компоненты слева. Контакты блока 400 кВ условные; линии на поле не описывают реальное подключение.';
   connections.forEach((wire, index) => {
     const from = partsById.get(wire.from.partId);
     const to = partsById.get(wire.to.partId);
@@ -360,7 +360,7 @@ document.querySelectorAll('.component-row').forEach((button) => button.addEventL
   saveActiveProject();
   renderProjects();
   showToast(button.dataset.safety === 'high-voltage'
-    ? 'Добавлен условный блок 400 кВ. Это символ для концептуальной схемы, не реальная схема устройства.'
+    ? 'Добавлен генератор импульсов 400 кВ с условными клеммами для визуальных проводов.'
     : `${part.name} добавлен в проект`);
 }));
 
