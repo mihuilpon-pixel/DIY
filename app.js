@@ -348,6 +348,33 @@ function drawConnections() {
     }
   }
 }
+function triggerFault(kind, partIds = []) {
+  const messages = { short: 'КОРОТКОЕ ЗАМЫКАНИЕ', overheat: 'ПЕРЕГРЕВ ЭЛЕМЕНТА', capacitor: 'ПРОБОЙ КОНДЕНСАТОРА' };
+  const part = activeProject.parts.find((item) => partIds.includes(item.id)) || activeProject.parts[0];
+  const card = part && Array.from(componentLayer.querySelectorAll('.component-card')).find((item) => item.dataset.componentId === part.id);
+  const bounds = canvas.getBoundingClientRect();
+  const target = card?.getBoundingClientRect();
+  const burst = document.createElement('div');
+  burst.className = `fault-burst fault-${kind}`;
+  burst.setAttribute('role', 'status');
+  burst.textContent = messages[kind];
+  burst.style.left = `${(target ? target.left + target.width / 2 : bounds.left + bounds.width / 2) - bounds.left + canvas.scrollLeft}px`;
+  burst.style.top = `${(target ? target.top + target.height / 2 : bounds.top + bounds.height / 2) - bounds.top + canvas.scrollTop}px`;
+  canvas.append(burst);
+  canvas.classList.add('fault-flash');
+  if (card) card.classList.add('fault-glitch', `fault-target-${kind}`);
+  showToast(messages[kind] + ' · визуальная демонстрация');
+  setTimeout(() => {
+    burst.remove();
+    canvas.classList.remove('fault-flash');
+    card?.classList.remove('fault-glitch', `fault-target-${kind}`);
+  }, 2400);
+}
+function isSupplyGroundPair(a, b) {
+  const positive = new Set(['+', '5V', '3V3', 'VIN', 'VBUS', 'B+', 'OUT+']);
+  const ground = new Set(['GND', '−', '-', 'B−', 'B-', 'OUT−', 'OUT-']);
+  return (positive.has(a) && ground.has(b)) || (positive.has(b) && ground.has(a));
+}
 function createWire() {
   const fromId = document.querySelector('#wire-from').value;
   const fromPin = document.querySelector('#pin-from').value;
@@ -359,8 +386,19 @@ function createWire() {
   activeProject.connections.push({ from: { partId: fromId, pin: fromPin }, to: { partId: toId, pin: toPin }, color: document.querySelector('#wire-color').value });
   saveActiveProject();
   renderParts();
-  showToast('Провод добавлен на схему');
+  if (isSupplyGroundPair(fromPin, toPin)) triggerFault('short', [fromId, toId]);
+  else showToast('Провод добавлен на схему');
 }
+document.querySelector('#demo-short').addEventListener('click', () => triggerFault('short'));
+document.querySelector('#demo-overheat').addEventListener('click', () => {
+  const target = activeProject.parts.find((part) => ['board', 'nano', 'esp32', 'pico'].includes(part.type)) || activeProject.parts[0];
+  triggerFault('overheat', target ? [target.id] : []);
+});
+document.querySelector('#demo-capacitor').addEventListener('click', () => {
+  const capacitor = activeProject.parts.find((part) => part.type === 'capacitor');
+  if (!capacitor) { showToast('Добавь на схему конденсатор для демонстрации пробоя'); return; }
+  triggerFault('capacitor', [capacitor.id]);
+});
 document.querySelector('#wire-from').addEventListener('change', (event) => fillPinOptions(event.target.value, document.querySelector('#pin-from')));
 document.querySelector('#wire-to').addEventListener('change', (event) => fillPinOptions(event.target.value, document.querySelector('#pin-to')));
 document.querySelector('#connect-wire').addEventListener('click', createWire);
