@@ -94,7 +94,7 @@ const pinMap = {
   gas: ['VCC', 'AOUT', 'DOUT', 'GND'], hall: ['VCC', 'OUT', 'GND'], soil: ['VCC', 'SIG', 'GND'], microphone: ['VCC', 'OUT', 'GND'],
   'current-sensor': ['IP+', 'IP−', 'VCC', 'OUT', 'GND'], oled: ['VCC', 'GND', 'SDA', 'SCL'], lcd1602: ['VCC', 'GND', 'SDA', 'SCL'],
   'seven-segment': ['VCC', 'GND', 'CLK', 'DIO'], servo: ['VCC', 'SIG', 'GND'], motor: ['M+', 'M−'], relay: ['VCC', 'IN', 'GND'],
-  l298n: ['ENA', 'IN1', 'IN2', 'OUT1', 'OUT2', 'GND'], buzzer: ['+', '−'], battery: ['+', '−'], mosfet: ['G', 'D', 'S'], hv400kv: ['IN · модель', 'HV OUT · модель', 'RETURN · модель'],
+  l298n: ['ENA', 'IN1', 'IN2', 'OUT1', 'OUT2', 'GND'], buzzer: ['+', '−'], battery: ['+', '−'], 'cell-18650': ['+', '−'], mosfet: ['G', 'D', 'S'], hv400kv: ['IN · модель', 'HV OUT · модель', 'RETURN · модель'],
   potentiometer: ['A', 'W', 'B'], button: ['1', '2'], 'function-generator': ['SIG', 'GND', 'EN'], 'pulse-generator': ['SIG', 'GND', 'EN'],
   scope: ['CH1', 'GND'], capacitor: ['1', '2'], diode: ['A', 'K'], transistor: ['B', 'C', 'E'], breadboard: ['+ rail', '− rail'],
 };
@@ -139,6 +139,7 @@ function graphicFor(type) {
   if (type === 'lcd1602') return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="19" y="12" width="142" height="59" rx="6" fill="#275d91" stroke="#9cc5dd" stroke-width="2"/><rect x="36" y="20" width="109" height="37" rx="3" fill="#90a56d" stroke="#d1d6b1" stroke-width="2"/><rect x="45" y="27" width="6" height="9" fill="#263525"/><rect x="55" y="27" width="6" height="9" fill="#263525"/><rect x="69" y="27" width="6" height="9" fill="#263525"/><rect x="79" y="27" width="6" height="9" fill="#263525"/><rect x="89" y="27" width="6" height="9" fill="#263525"/><rect x="99" y="27" width="6" height="9" fill="#263525"/><rect x="45" y="41" width="6" height="9" fill="#263525"/><rect x="55" y="41" width="6" height="9" fill="#263525"/><rect x="69" y="41" width="6" height="9" fill="#263525"/><rect x="79" y="41" width="6" height="9" fill="#263525"/><rect x="89" y="41" width="6" height="9" fill="#263525"/><rect x="99" y="41" width="6" height="9" fill="#263525"/><path d="M48 72v7m17-7v7m17-7v7m17-7v7m17-7v7m17-7v7" stroke="#d9ca8f" stroke-width="2"/></svg>';
   if (type === 'seven-segment') return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="25" y="8" width="130" height="68" rx="6" fill="#282f2b" stroke="#849082" stroke-width="2"/><g fill="#e06053"><path d="M46 18h22l-4 5H50zM46 38h22l-4 5H50zM46 58h22l-4 5H50zM45 21h5v17h-5zm21 0h5v17h-5zm-21 22h5v15h-5zm21 0h5v15h-5z"/><path d="M86 18h22l-4 5H90zM86 38h22l-4 5H90zM86 58h22l-4 5H90zM85 21h5v17h-5zm21 0h5v17h-5zm-21 22h5v15h-5zm21 0h5v15h-5z"/></g><circle cx="126" cy="61" r="4" fill="#e06053"/><path d="M53 76v6m13-6v6m22-6v6m13-6v6" stroke="#d0c58c" stroke-width="2"/></svg>';
   if (type === 'battery') return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="55" y="12" width="70" height="61" rx="18" fill="#515951" stroke="#c2c8bb" stroke-width="3"/><rect x="77" y="7" width="26" height="8" rx="2" fill="#ded9ba"/><path d="M65 31h50m-50 10h50m-50 10h50" stroke="#7e887c" stroke-width="3"/><path d="M79 26h22" stroke="#d8dfd0" stroke-width="2"/></svg>';
+  if (type === 'cell-18650') return '<svg viewBox="0 0 180 84" aria-hidden="true"><ellipse cx="90" cy="20" rx="25" ry="9" fill="#c1c5b8" stroke="#edf0e6" stroke-width="2"/><rect x="65" y="20" width="50" height="45" fill="#315d46" stroke="#91a987" stroke-width="2"/><ellipse cx="90" cy="65" rx="25" ry="9" fill="#263b31" stroke="#859584" stroke-width="2"/><ellipse cx="90" cy="15" rx="9" ry="4" fill="#e1dfd1" stroke="#fff" stroke-width="1.5"/><path d="M74 25v39m8-42v44m17-44v44m8-41v39" stroke="#587b61" stroke-width="2"/><rect x="71" y="36" width="38" height="15" rx="3" fill="#d9d9c9"/><text x="76" y="46" fill="#29352c" font-size="8" font-weight="bold">18650</text><path d="M84 11h12" stroke="#d35b50" stroke-width="2"/></svg>';
   return '<svg viewBox="0 0 180 84" aria-hidden="true"><rect x="44" y="12" width="92" height="60" rx="8" fill="#343e37" stroke="#82917b" stroke-width="2"/><circle cx="90" cy="42" r="17" fill="#17201a" stroke="#c0f178" stroke-width="3"/><path d="M90 31v22m-11-11h22" stroke="#c0f178" stroke-width="3"/></svg>';
 }
 document.querySelectorAll('.component-row').forEach((button) => {
@@ -453,7 +454,7 @@ const categoryByPart = {
   led: 'passive', 'rgb-led': 'passive', resistor: 'passive', button: 'passive', potentiometer: 'passive', mosfet: 'passive', capacitor: 'passive', diode: 'passive', transistor: 'passive', breadboard: 'passive',
   sensor: 'sensors', dht22: 'sensors', ultrasonic: 'sensors', ldr: 'sensors', bmp280: 'sensors', lm35: 'sensors', pir: 'sensors', gas: 'sensors', hall: 'sensors', soil: 'sensors', microphone: 'sensors', 'current-sensor': 'sensors',
   'function-generator': 'signals', 'pulse-generator': 'signals', hv400kv: 'signals', scope: 'signals',
-  battery: 'power', tp4056: 'power',
+  battery: 'power', 'cell-18650': 'power', tp4056: 'power',
   oled: 'displays', lcd1602: 'displays', 'seven-segment': 'displays',
   servo: 'drivers', motor: 'drivers', relay: 'drivers', l298n: 'drivers', buzzer: 'drivers',
 };
