@@ -46,7 +46,7 @@ function renderProjects() {
     const card = document.createElement('article');
     card.className = 'project-card created-project';
     card.dataset.projectId = project.id;
-    card.innerHTML = `<div class="project-art"><span class="created-art-symbol">⌘</span><span class="art-caption">${escapeHtml(project.board || 'DIY PROJECT')}</span></div><div class="project-info"><div class="project-title-row"><h3></h3><button class="more-button project-menu" type="button" aria-label="Удалить проект" title="Удалить проект">···</button></div><p></p><div class="project-meta"><span class="project-status in-progress"><i></i>Мой проект</span><span></span></div><div class="project-tags"><span></span><span>${project.parts.length} компонентов</span></div></div>`;
+    card.innerHTML = `<div class="project-art"><span class="created-art-symbol">⌘</span><span class="art-caption">МОЯ СХЕМА</span></div><div class="project-info"><div class="project-title-row"><h3></h3><button class="more-button project-menu" type="button" aria-label="Удалить проект" title="Удалить проект">···</button></div><p></p><div class="project-meta"><span class="project-status in-progress"><i></i>Мой проект</span><span></span></div><div class="project-tags"><span>DIY</span><span>${project.parts.length} компонентов</span></div></div>`;
     card.querySelector('h3').textContent = project.name;
     card.querySelector('.project-info > p').textContent = project.description || 'Личный проект в моей мастерской';
     card.querySelector('.project-meta > span:last-child').textContent = formatDate(project.updatedAt || project.createdAt);
@@ -106,7 +106,7 @@ function renderParts() {
   }
   const count = activeProject.id === defaultProject.id ? 3 : activeProject.parts.length;
   const connectionCount = activeProject.id === defaultProject.id ? 2 : Math.max(0, activeProject.parts.length - 1);
-  const boardName = activeProject.board || 'Arduino Uno';
+  const boardName = activeProject.board || 'Схема без платы';
   document.querySelector('.canvas-footer span:nth-child(2)').innerHTML = `${escapeHtml(boardName)} <b>·</b> ${count} компонентов <b>·</b> ${connectionCount} соединений`;
   document.querySelector('.workspace-badge').innerHTML = `<i></i> ${activeProject.id === defaultProject.id ? 'Черновик сохранён' : 'Автосохранение включено'}`;
   document.querySelectorAll('.component-row').forEach((row) => row.classList.remove('added'));
@@ -128,13 +128,11 @@ projectForm.addEventListener('submit', (event) => {
   const form = new FormData(projectForm);
   const name = String(form.get('name') || '').trim();
   if (!name) { document.querySelector('#project-name').focus(); return; }
-  const board = String(form.get('board') || 'Arduino Uno');
   const project = {
     id: `project-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     name,
     description: String(form.get('description') || '').trim(),
-    board,
-    parts: [{ type: board.toLowerCase().replaceAll(' ', '-'), name: board, icon: '▦' }],
+    parts: [],
     code: defaultCode,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -159,7 +157,7 @@ function deleteProject(id) {
 
 document.querySelectorAll('.component-row').forEach((button) => button.addEventListener('click', () => {
   if (activeProject.id === defaultProject.id) {
-    const project = { ...defaultProject, id: `project-${Date.now()}`, name: 'Мой проект', description: 'Создан из редактора схем', parts: [], code: codeEditor.value, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    const project = { ...defaultProject, id: `project-${Date.now()}`, name: 'Мой проект', description: 'Создан из редактора схем', board: null, parts: [], code: codeEditor.value, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     projects.unshift(project);
     activeProject = project;
     canvas.classList.add('user-project');
@@ -180,9 +178,10 @@ document.querySelectorAll('.component-row').forEach((button) => button.addEventL
 
 const categoryByPart = {
   board: 'boards', nano: 'boards', esp32: 'boards', pico: 'boards',
-  led: 'passive', 'rgb-led': 'passive', resistor: 'passive', button: 'passive', potentiometer: 'passive', battery: 'passive', mosfet: 'passive', capacitor: 'passive', diode: 'passive', transistor: 'passive', breadboard: 'passive',
+  led: 'passive', 'rgb-led': 'passive', resistor: 'passive', button: 'passive', potentiometer: 'passive', mosfet: 'passive', capacitor: 'passive', diode: 'passive', transistor: 'passive', breadboard: 'passive',
   sensor: 'sensors', dht22: 'sensors', ultrasonic: 'sensors', ldr: 'sensors', bmp280: 'sensors', lm35: 'sensors', pir: 'sensors', gas: 'sensors', hall: 'sensors', soil: 'sensors', microphone: 'sensors', 'current-sensor': 'sensors',
   'function-generator': 'signals', 'pulse-generator': 'signals', hv400kv: 'signals', scope: 'signals',
+  battery: 'power', tp4056: 'power',
   oled: 'displays', lcd1602: 'displays', 'seven-segment': 'displays',
   servo: 'drivers', motor: 'drivers', relay: 'drivers', l298n: 'drivers', buzzer: 'drivers',
 };
